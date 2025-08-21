@@ -108,9 +108,7 @@ if st.button("Predict Shelf Life"):
 
     except Exception as e:
         st.markdown(f'<div class="custom-error-container"><p class="error-text">An error occurred:</p><p>{e}</p></div>', unsafe_allow_html=True)
-r-container"><p class="error-text">An error occurred:</p><p>{e}</p></div>', unsafe_allow_html=True)
 
-    st.markdown('</div>', unsafe_allow_html=True)
 
 
 
