@@ -13,23 +13,21 @@ st.write("Enter the product's features to predict its status.")
 # Input widgets for user data
 st.header("Enter Product Details:")
 
-# The labels in these widgets are for the user to see, but the
-# variable names must match the dictionary keys later.
+# The labels are for the user to see, but the dictionary keys MUST match the column names.
 entry_id = st.number_input("Entry ID", value=1)
-temperature = st.number_input("Temperature (ºC)", value=4.5)
-time = st.number_input("Time (Hours)", value=48)
+temperature_c = st.number_input("Temperature (°C)", value=4.5)
+time_hours = st.number_input("Time (Hours)", value=48)
 ph_level = st.number_input("pH Level", value=6.7)
 smell_score = st.number_input("Smell Score (1-5)", value=3)
 visual_score = st.number_input("Visual Score (1-5)", value=4)
 microbial_count = st.number_input("Microbial Count (cfu/ml)", value=5000)
 
 # Create a DataFrame for prediction
-# The keys in this dictionary MUST EXACTLY match the column names
-# you just saw from your training data.
+# The keys in this dictionary MUST EXACTLY match the column names from your training data.
 data = {
     'Entry ID': [entry_id],
-    'Temperature (ºC)': [temperature],
-    'Time (Hours)': [time],
+    'Temperature (°C)': [temperature_c],
+    'Time (Hours)': [time_hours],
     'pH Level': [ph_level],
     'Smell Score (1-5)': [smell_score],
     'Visual Score (1-5)': [visual_score],
