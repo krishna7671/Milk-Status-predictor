@@ -1,9 +1,12 @@
 import streamlit as st
 import pandas as pd
 import joblib
+from google.colab import drive
 
 # Load the trained model from the same directory
-model_load_path = 'my_dairy_model.joblib'
+# Ensure this path is correct and your Drive is mounted
+# IMPORTANT: You must upload the 'balanced_dairy_model.joblib' file to your GitHub repository
+model_load_path = 'balanced_dairy_model.joblib'
 model = joblib.load(model_load_path)
 
 # App title and description
@@ -13,7 +16,8 @@ st.write("Enter the product's features to predict its status.")
 # Input widgets for user data
 st.header("Enter Product Details:")
 
-# The labels are for the user to see, but the dictionary keys MUST match the column names.
+# The labels in these widgets are for the user to see.
+# The variable names must match the dictionary keys later.
 entry_id = st.number_input("Entry ID", value=1)
 temperature_c = st.number_input("Temperature (°C)", value=4.5)
 time_hours = st.number_input("Time (Hours)", value=48)
@@ -23,7 +27,8 @@ visual_score = st.number_input("Visual Score (1-5)", value=4)
 microbial_count = st.number_input("Microbial Count (cfu/ml)", value=5000)
 
 # Create a DataFrame for prediction
-# The keys in this dictionary MUST EXACTLY match the column names from your training data.
+# The keys in this dictionary MUST EXACTLY match the column names
+# that your balanced model was trained on.
 data = {
     'Entry ID': [entry_id],
     'Temperature (°C)': [temperature_c],
