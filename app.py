@@ -69,22 +69,14 @@ st.markdown(
 st.title("🥛 AI-Powered Dairy Predictor")
 st.write("A professional dashboard for predicting dairy product shelf life.")
 
-# Create two columns for the input and output panels
-col1, col2 = st.columns(2)
-
-# Input Panel
-with col1:
-    st.header("Input")
-    st.markdown('<div class="st-bu">', unsafe_allow_html=True)
-    # Input fields that match the features from your dataset
-    entry_id = st.number_input("Entry ID", value=1, step=1)
-    temperature_c = st.number_input("Temperature (°C)", value=4.5, format="%.1f")
-    time_hours = st.number_input("Time (Hours)", value=48, step=1)
-    ph_level = st.number_input("pH Level", value=6.8, format="%.2f")
-    smell_score = st.number_input("Smell Score (1-5)", value=3, step=1)
-    visual_score = st.number_input("Visual Score (1-5)", value=4, step=1)
-    microbial_count = st.number_input("Microbial Count (cfu/ml)", value=5000, step=1)
-    st.markdown('</div>', unsafe_allow_html=True)
+# Input fields that match the features from your dataset
+entry_id = st.number_input("Entry ID", value=1, step=1)
+temperature_c = st.number_input("Temperature (°C)", value=4.5, format="%.1f")
+time_hours = st.number_input("Time (Hours)", value=48, step=1)
+ph_level = st.number_input("pH Level", value=6.8, format="%.2f")
+smell_score = st.number_input("Smell Score (1-5)", value=3, step=1)
+visual_score = st.number_input("Visual Score (1-5)", value=4, step=1)
+microbial_count = st.number_input("Microbial Count (cfu/ml)", value=5000, step=1)
 
 # Create a DataFrame for prediction
 input_data = {
@@ -98,29 +90,25 @@ input_data = {
 }
 input_df = pd.DataFrame(input_data)
 
-# Results Panel
-with col2:
-    st.header("Results")
-    st.markdown('<div class="st-cy">', unsafe_allow_html=True)
+if st.button("Predict Shelf Life"):
+    try:
+        # Make the prediction
+        prediction = model.predict(input_df)
+        predicted_days = int(round(prediction[0]))
 
-    if st.button("Predict Shelf Life"):
-        try:
-            # Make the prediction
-            prediction = model.predict(input_df)
-            predicted_days = int(round(prediction[0]))
+        # Display the result
+        if predicted_days > 0:
+            status = "Fresh"
+            st.markdown(f'<div class="fresh">Milk Status: {status}</div>', unsafe_allow_html=True)
+            st.success(f"Shelf-life remaining: {predicted_days} days")
+        else:
+            status = "Spoiled"
+            st.markdown(f'<div class="spoiled">Milk Status: {status}</div>', unsafe_allow_html=True)
+            st.error("Product is spoiled.")
 
-            # Display the result
-            if predicted_days > 0:
-                status = "Fresh"
-                st.markdown(f'<div class="fresh">Milk Status: {status}</div>', unsafe_allow_html=True)
-                st.success(f"Shelf-life remaining: {predicted_days} days")
-            else:
-                status = "Spoiled"
-                st.markdown(f'<div class="spoiled">Milk Status: {status}</div>', unsafe_allow_html=True)
-                st.error("Product is spoiled.")
-
-        except Exception as e:
-            st.markdown(f'<div class="custom-error-container"><p class="error-text">An error occurred:</p><p>{e}</p></div>', unsafe_allow_html=True)
+    except Exception as e:
+        st.markdown(f'<div class="custom-error-container"><p class="error-text">An error occurred:</p><p>{e}</p></div>', unsafe_allow_html=True)
+r-container"><p class="error-text">An error occurred:</p><p>{e}</p></div>', unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
 
