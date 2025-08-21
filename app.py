@@ -23,6 +23,7 @@ st.markdown(
         border-radius: 1rem;
         padding: 2rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        color: #333333; /* Darker text for visibility */
     }
     .st-cy {
         background-color: #ffffff;
@@ -31,6 +32,7 @@ st.markdown(
         text-align: center;
         margin-top: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        color: #333333; /* Darker text for visibility */
     }
     .fresh {
         background-color: #34D399; /* Green for Fresh */
@@ -121,6 +123,7 @@ with col2:
             st.markdown(f'<div class="custom-error-container"><p class="error-text">An error occurred:</p><p>{e}</p></div>', unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
