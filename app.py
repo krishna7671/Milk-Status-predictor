@@ -48,6 +48,17 @@ st.markdown(
         font-weight: bold;
         text-align: center;
     }
+    .custom-error-container {
+        background-color: #FFCDD2;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        color: #B71C1C;
+        text-align: left;
+    }
+    .error-text {
+        font-weight: bold;
+        color: #B71C1C;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -64,21 +75,24 @@ with col1:
     st.header("Input")
     st.markdown('<div class="st-bu">', unsafe_allow_html=True)
     # Input fields that match the features from your dataset
-    ph = st.number_input("pH Level", value=6.8, format="%.2f")
+    entry_id = st.number_input("Entry ID", value=1, step=1)
     temperature_c = st.number_input("Temperature (°C)", value=4.5, format="%.1f")
-    microbial_count = st.number_input("Microbial Count (cfu/ml)", value=5000, step=1)
+    time_hours = st.number_input("Time (Hours)", value=48, step=1)
+    ph_level = st.number_input("pH Level", value=6.8, format="%.2f")
     smell_score = st.number_input("Smell Score (1-5)", value=3, step=1)
     visual_score = st.number_input("Visual Score (1-5)", value=4, step=1)
-    # Add other inputs if your model was trained on them
+    microbial_count = st.number_input("Microbial Count (cfu/ml)", value=5000, step=1)
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Create a DataFrame for prediction
 input_data = {
-    'pH Level': [ph],
+    'Entry ID': [entry_id],
     'Temperature (°C)': [temperature_c],
-    'Microbial Count (cfu/ml)': [microbial_count],
+    'Time (Hours)': [time_hours],
+    'pH Level': [ph_level],
     'Smell Score (1-5)': [smell_score],
-    'Visual Score (1-5)': [visual_score]
+    'Visual Score (1-5)': [visual_score],
+    'Microbial Count (cfu/ml)': [microbial_count]
 }
 input_df = pd.DataFrame(input_data)
 
@@ -104,8 +118,9 @@ with col2:
                 st.error("Product is spoiled.")
 
         except Exception as e:
-            st.error(f"An error occurred: {e}")
+            st.markdown(f'<div class="custom-error-container"><p class="error-text">An error occurred:</p><p>{e}</p></div>', unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
