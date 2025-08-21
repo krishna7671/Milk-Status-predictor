@@ -5,7 +5,7 @@ import joblib
 
 # Load the trained model
 # Ensure this path is correct and your Drive is mounted
-model_load_path = '/content/drive/My Drive/my_dairy_model.joblib'
+model_load_path = 'my_dairy_model.joblib'
 model = joblib.load(model_load_path)
 
 # App title and description
